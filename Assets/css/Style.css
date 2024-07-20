@@ -1,0 +1,143 @@
+
+
+.body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box ;
+}
+.box {
+    width: 100%;
+    height: 100vh;
+    margin: auto;
+    color: black;
+    background-color: grey;
+    display: flex;
+    justify-content: center;
+    padding-top: 5%;
+   
+}
+.icon{
+    display: flex;
+    padding-top: 5%;
+    
+}
+
+.icon i{
+    color: black;
+
+}
+
+.box-container{
+    width: 90%;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    
+}
+
+.btn{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.left-box{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    padding-left: 8%;
+
+}
+.left-box h1{
+    padding-top: 7%;
+}
+ 
+.right-box{
+   width: 50%;
+   height: 100%;
+}
+.container-right{
+    width: 400px;
+    height: 100%;
+    padding: 20px;
+    margin: auto;
+}
+.containerightitem{
+    width: 400px;
+    height: 100px;
+    text-align: center;
+    padding-top: 10%;  
+}
+.containerightitem p{
+    margin: 0;
+}
+.containerightitem h1{
+    margin: 0;
+}
+
+.right-box img{
+    width: 200px;
+    border-radius: 20px;
+}
+
+/*=====*/
+
+
+
+
+
+nav{
+    background-color: rgb(0, 0, 0);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left{
+
+    display: flex;
+    align-items: center;
+ 
+}
+
+.left ul{
+    display: flex;
+    align-items: center;
+}
+
+.left ul li{
+    list-style: none;
+    padding-right: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.left ul li a{
+    text-decoration: none;
+    color: rgb(247, 246, 246);
+    display: flex;
+    align-items: center;
+}
+.right{
+    
+    display: flex;
+    align-items: center;
+}
+
+.right button{
+    width: 100px;
+    background-color: rgb(250, 250, 250);
+    border-radius: 15%;
+}
+.right button a{
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+*{
+    margin: 0;
+padding: 0
+}
