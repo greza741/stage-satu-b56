@@ -29,4 +29,9 @@ function getData() {
   document.getElementById("Subject").value = "Give me Reason";
   document.getElementById("Massage").value = "";
 
+  let myEmail = "satrianieros33@gmail.com";
+  let isian = "Pesan Tertulis";
+  let a = document.createElement("a");
+  a.href = `mailto:${myEmail}?subject=${isian}&body= Nama : ${name} Email : ${email} Nomor-Handphone :${number} Keperluan : ${subject} Pesan : ${massage}`;
+  a.click();
 }
