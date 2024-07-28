@@ -35,3 +35,10 @@ function getData() {
   a.href = `mailto:${myEmail}?subject=${isian}&body= Nama : ${name} Email : ${email} Nomor-Handphone :${number} Keperluan : ${subject} Pesan : ${massage}`;
   a.click();
 }
+
+// menu bar
+
+function menuBar() {
+  let element = document.getElementById("bars-menu");
+  element.classList.toggle("bars-menu");
+}

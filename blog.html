@@ -15,28 +15,41 @@
     <nav>
         <div class="left">
             <ul>
+                <a href="https://dumbways.id/" target="_blank"> <img src="./Assets/dw.png" alt="" style="width: 30px;">
+                </a>
                 <li>
-                    <a href="https://dumbways.id/" target="_blank"> <img src="./Assets/dw.png" alt=""
-                            style="width: 30px;"> </a>
                 </li>
                 <li>
-                    <a href="./contact.html"> Home </a>
+                    <a href="./home.html"> Home </a>
                 </li>
                 <li>
 
                     <a href="./index.html"> My Project </a>
                 </li>
+                <li>
+                    <a href="./blog.html">Create</a>
+                </li>
+                <li>
+                    <a href="./Testimoni.html">Testimoni</a>
+                </li>
             </ul>
         </div>
-        <div><a href="./blog.html"><img style="width: 35px; padding-right: 106px;" src="./Assets/hell2_045146.png"
-                    alt="">
-        </div></a>
         <div class="right">
-            <button>
+            <button class="btn-ctc">
                 <a style="display: flex;padding: 9px 13px;font-size: 14;" href="./contactform.html">Contact Me</a>
+            </button>
+            <button class="btn-bars" onclick="menuBar()">
+                <i class="fa-solid fa-bars"></i>
             </button>
         </div>
     </nav>
+    <div id="bars-menu" class="bars-dflt">
+        <h3 class="menu-bars"><a href="./home.html">Home</a></h3>
+        <h3 class="menu-bars"><a href="./index.html">My Project</a></h3>
+        <h3 class="menu-bars"><a href="./blog.html">Create Project</a></h3>
+        <h3 class="menu-bars"><a href="./contactform.html">Contact Me</a></h3>
+        <h3 class="menu-bars"><a href="./Testimoni.html">Testimoni</a></h3>
+    </div>
     <h1 class="GIT">Add My Project</h1>
     <form onsubmit="addBlog(event)" style="width: 500px;">
         <div>
@@ -92,6 +105,7 @@
         <h1>My Project</h1>
     </div>
     <div class="mainblog" id="contents">
+        <!-- My project js -->
 
     </div>
 </body>
