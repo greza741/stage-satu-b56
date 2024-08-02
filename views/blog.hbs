@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Assets/css/style2.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Create Blog</title>
+</head>
+
+<body class="bodyblog">
+    <nav>
+        <div class="left">
+            <ul>
+                <a href="https://dumbways.id/" target="_blank"> <img src="./Assets/dw.png" alt="" style="width: 30px;">
+                </a>
+                <li>
+                </li>
+                <li>
+                    <a href="./home"> Home </a>
+                </li>
+                <li>
+
+                    <a href="./index"> My Project </a>
+                </li>
+                <li>
+                    <a href="./blog">Create</a>
+                </li>
+                <li>
+                    <a href="./Testimoni">Testimoni</a>
+                </li>
+            </ul>
+        </div>
+        <div class="right">
+            <button class="btn-ctc">
+                <a style="display: flex;padding: 9px 13px;font-size: 14;" href="./contactform">Contact Me</a>
+            </button>
+            <button class="btn-bars" onclick="menuBar()">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    <div id="bars-menu" class="bars-dflt">
+        <h3 class="menu-bars"><a href="./home">Home</a></h3>
+        <h3 class="menu-bars"><a href="./index">My Project</a></h3>
+        <h3 class="menu-bars"><a href="./blog">Create Project</a></h3>
+        <h3 class="menu-bars"><a href="./contactform">Contact Me</a></h3>
+        <h3 class="menu-bars"><a href="./Testimoni">Testimoni</a></h3>
+    </div>
+    <h1 class="GIT">Add My Project</h1>
+    <form action="/blog" method="post" style="width: 500px;">
+        <div>
+            <label for="projectInput">Project Name</label>
+            <input name="title" id="projectInput" type="text" placeholder="Input Project Name">
+        </div>
+        <div style="flex-direction: row;justify-content: space-between;">
+            <div>
+                <label for="startDate">Start Date</label>
+                <input name="startDate" style="padding-inline-end: 128px;" id="startDate" type="date" placeholder="Starting Date">
+            </div>
+            <div>
+                <label for="endDate">End Date</label>
+                <input name="endDate" style="padding-inline-end: 128px;" id="endDate" type="date" placeholder="Ending Date">
+            </div>
+        </div>
+        <div>
+            <label for="inputContent">Content</label>
+            <textarea name="inputContent" style="padding: 30px;" id="inputContent" placeholder="Input Your Content"></textarea>
+        </div>
+        <label>Technologies :</label>
+        <div style="flex-direction: row; padding-top: 10px;" class="checkbox">
+            <div>
+                <div style="flex-direction: row;">
+                    <input type="checkbox" id="inputNode">
+                    <label for="inputNode">Node Js</label>
+                </div>
+                <div style="flex-direction: row;">
+                    <input type="checkbox" id="inputNext">
+                    <label for="inputNext">Next Js</label>
+                </div>
+            </div>
+            <div style="padding-left: 100px;">
+                <div style="flex-direction: row;">
+                    <input type="checkbox" id="inputReact">
+                    <label for="inputReact">React Js</label>
+                </div>
+                <div style="flex-direction: row;">
+                    <input type="checkbox" id="inputType">
+                    <label for="inputType">TypeScript</label>
+                </div>
+            </div>
+        </div>
+        <div>
+            <label for="inputImage">Upload Image</label>
+            <input style="background-color: rgb(255, 255, 255);
+             padding: 0px;
+              border: 1px solid;" id="inputImage" type="file" placeholder="Input Your Image">
+        </div>
+        <button>Sumbit</button>
+    </form>
+    <div class="blog-div1"></div>
+    <hr class="line">
+    <div class="blog-div2">
+        <h1>My Project</h1>
+    </div>
+    <div class="mainblog" id="">
+        <!-- My project js -->
+        {{#each data}}
+         <div class="mainblog">
+            <div class="inputblog">
+                <div style="margin: 5px 5px;">
+                    <img style="border-radius: 10px;" src="./Assets/blogsample.jpeg">
+                </div>
+                <div style="margin: 5px;">
+                    <h1>{{this.title}}</h1>
+                    <h5>{{this.startDate}} - {{this.endDate}}</h5> <br>
+                    <p>{{this.inputContent}}</p>
+                </div>
+                <div class="icon-blog">
+                    <a href="https://www.google.com/" target="_blank"><i class="fa-brands fa-google-play fa-lg"></i></a>
+                    <a href="https://www.google.com/" target="_blank"><i class="fa-brands fa-android fa-lg"></i></a>
+                    <a href="https://www.google.com/" target="_blank"><i class="fa-brands fa-java fa-lg"></i></a>
+                </div>
+                <div style="text-align: right;">
+                    // date pembuatan
+                </div>
+                <div class="blog-button">
+                    <button><a href="./Contohproject.html">Edit</a></button>
+                    <button><a href="">Delete</a></button>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+    </div>
+</body>
+<script src="./Assets/js/blog.js"></script>
+
+</html>

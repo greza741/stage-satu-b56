@@ -1,28 +1,25 @@
-const testimonials = [
-    {
-        image : "./Assets/man1.jpeg",
-        content : "Mantabb bang !",
-        author : "Yadi Kurnia",
-        rating : 5
-
-    },
-    {
-        image : "./Assets/man2.jpeg",
-        content : "Boljug bangg !",
-        author : "Bewok Master",
-        rating : 3
+function fetchUrl(url) {
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
         
-    },
-    {
-        image : "./Assets/man3.jpeg",
-        content : "Ashhhhhhh",
-        author : "Sleve Champion",
-        rating : 1
-        
-    }
-];
+        xhr.open("GET", url, true);
+        xhr.onerror = () => {
+            reject("Network Error !");
+        };
+        xhr.onload = () => {
+            resolve(JSON.parse(xhr.responseText));
+        };
+        xhr.send();
 
-function allTestimonial() {
+    });
+}
+
+async function allTestimonial() {
+
+    const testimonials = await fetchUrl(
+        "https://api.npoint.io/279903f4730b08b28a87"
+    );
+
     const testimonialHTML = testimonials.map(testimonial => {
         return `<div class="divtesti">
             <div class="boxtesti">
@@ -38,7 +35,11 @@ function allTestimonial() {
      document.getElementById("testimonials").innerHTML = testimonialHTML
 }
 
-function filterTestimonial(rating) {
+async function filterTestimonial(rating) {
+    const testimonials = await fetchUrl(
+        "https://api.npoint.io/279903f4730b08b28a87"
+    );
+
     const filteredTestimonialByRating = testimonials.filter(testimonial => {
         return testimonial.rating == rating
     })
