@@ -51,7 +51,7 @@
         <h3 class="menu-bars"><a href="./Testimoni">Testimoni</a></h3>
     </div>
     <h1 class="GIT">Add My Project</h1>
-    <form action="/blog" method="post" style="width: 500px;">
+    <form action="/blog" method="POST" style="width: 500px;">
         <div>
             <label for="projectInput">Project Name</label>
             <input name="title" id="projectInput" type="text" placeholder="Input Project Name">
@@ -59,16 +59,19 @@
         <div style="flex-direction: row;justify-content: space-between;">
             <div>
                 <label for="startDate">Start Date</label>
-                <input name="startDate" style="padding-inline-end: 128px;" id="startDate" type="date" placeholder="Starting Date">
+                <input name="startDate" style="padding-inline-end: 128px;" id="startDate" type="date"
+                    placeholder="Starting Date">
             </div>
             <div>
                 <label for="endDate">End Date</label>
-                <input name="endDate" style="padding-inline-end: 128px;" id="endDate" type="date" placeholder="Ending Date">
+                <input name="endDate" style="padding-inline-end: 128px;" id="endDate" type="date"
+                    placeholder="Ending Date">
             </div>
         </div>
         <div>
             <label for="inputContent">Content</label>
-            <textarea name="inputContent" style="padding: 30px;" id="inputContent" placeholder="Input Your Content"></textarea>
+            <textarea name="inputContent" style="padding: 30px;" id="inputContent"
+                placeholder="Input Your Content"></textarea>
         </div>
         <label>Technologies :</label>
         <div style="flex-direction: row; padding-top: 10px;" class="checkbox">
@@ -109,15 +112,16 @@
     <div class="mainblog" id="">
         <!-- My project js -->
         {{#each data}}
-         <div class="mainblog">
+        <div class="mainblog">
             <div class="inputblog">
                 <div style="margin: 5px 5px;">
-                    <img style="border-radius: 10px;" src="./Assets/blogsample.jpeg">
+                    <a href="./Contohproject/{{this.id}}" target="_blank"><img style="border-radius: 10px;"
+                            src="./Assets/blogsample.jpeg"></a>
                 </div>
                 <div style="margin: 5px;">
                     <h1>{{this.title}}</h1>
                     <h5>{{this.startDate}} - {{this.endDate}}</h5> <br>
-                    <p>{{this.inputContent}}</p>
+                    <p>{{this.content}}</p>
                 </div>
                 <div class="icon-blog">
                     <a href="https://www.google.com/" target="_blank"><i class="fa-brands fa-google-play fa-lg"></i></a>
@@ -125,11 +129,11 @@
                     <a href="https://www.google.com/" target="_blank"><i class="fa-brands fa-java fa-lg"></i></a>
                 </div>
                 <div style="text-align: right;">
-                    // date pembuatan
+                    {{this.createdAt}} | {{this.author}}
                 </div>
                 <div class="blog-button">
-                    <button><a href="./Contohproject.html">Edit</a></button>
-                    <button><a href="">Delete</a></button>
+                    <button class="btnblog"><a style="display: flex;" href="/edit-blog/{{this.id}}">Edit</a></button>
+                    <button class="btnblog"><a href="/delete-blog/{{this.id}}">Delete</a></button>
                 </div>
             </div>
         </div>

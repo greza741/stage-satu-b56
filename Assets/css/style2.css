@@ -229,3 +229,14 @@ form input,select,textarea {
     text-decoration: none;
     color: white;
 }
+.btnblog{
+    background-color: rgb(3, 1, 0);
+    padding: 8px 20px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    cursor: pointer;
+    transition: 0.2s;
+}
