@@ -1,51 +1,58 @@
+.active {
+    color: rgb(240, 92, 34) !important;
 
+}
 
 .body {
     padding: 0;
     margin: 0;
-    box-sizing: border-box ;
+    box-sizing: border-box;
 }
+
 .box {
     margin: auto;
     color: black;
     background-color: rgb(194, 188, 188);
-    display:flex;
+    display: flex;
     justify-content: center;
     padding-top: 5%;
-    
+
 }
+
 @media only screen and (max-width : 500px) {
     .box-container {
         flex-direction: column-reverse;
     }
 
 }
-.icon{
+
+.icon {
     display: flex;
     padding-top: 5%;
-    
+
 }
 
-.icon i{
+.icon i {
     color: black;
 
 }
 
-.box-container{
+.box-container {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: white;
     border-radius: 20px;
-    
+
 }
 
-.btn{
+.btn {
     display: flex;
     align-items: center;
     gap: 15px;
 }
-.left-box{
+
+.left-box {
     display: flex;
     flex-direction: column;
     width: 50%;
@@ -53,31 +60,36 @@
     padding-left: 8%;
 
 }
-.left-box h1{
+
+.left-box h1 {
     padding-top: 7%;
 }
- 
-.right-box{
-   display: flex;
-   
+
+.right-box {
+    display: flex;
+
 }
-.container-right{
+
+.container-right {
     padding: 20px;
     margin: auto;
     text-align: center;
 }
-.containerightitem{
+
+.containerightitem {
     text-align: center;
-    padding-top: 10%;  
+    padding-top: 10%;
 }
-.containerightitem p{
-    margin: 0;
-}
-.containerightitem h1{
+
+.containerightitem p {
     margin: 0;
 }
 
-.right-box img{
+.containerightitem h1 {
+    margin: 0;
+}
+
+.right-box img {
     width: 200px;
     border-radius: 20px;
 }
@@ -86,62 +98,64 @@
 
 
 
-nav{
+nav {
     background-color: rgb(0, 0, 0);
     padding: 20px;
     display: flex;
     justify-content: space-between;
 }
 
-.left{
+.left {
 
     display: flex;
     align-items: center;
- 
+
 }
 
-.left ul{
+.left ul {
     display: flex;
     align-items: center;
 }
 
-.left ul li{
+.left ul li {
     list-style: none;
     padding-right: 20px;
     display: flex;
     align-items: center;
 }
 
-.left ul li a{
+.left ul li a {
     text-decoration: none;
     color: rgb(247, 246, 246);
     display: flex;
     align-items: center;
 }
-.right{
-    
+
+.right {
+
     display: flex;
     align-items: center;
 }
 
-.btn-ctc{
+.btn-ctc {
     width: 100px;
     background-color: rgb(250, 250, 250);
     border-radius: 15%;
 }
-.right button a{
+
+.right button a {
     text-decoration: none;
     color: rgb(0, 0, 0);
 }
 
-*{
+* {
     margin: 0;
-padding: 0
+    padding: 0
 }
 
 /* === */
 
-.btn-bars{
+.btn-bars {
     background-color: rgb(252, 249, 249);
     width: 60px;
     border-radius: 10px;
@@ -149,62 +163,73 @@ padding: 0
 }
 
 @media only screen and (max-width : 500px) {
-    .left ul li{
+    .left ul li {
         display: none;
     }
+
     .btn-ctc {
         display: none;
     }
-    .btn-bars { 
+
+    .btn-bars {
         display: block;
     }
-    
+
 }
 
 .bars-dflt {
     display: none;
-   
+
 }
+
 .bars-menu {
-   display: block;
-   background-color: rgb(194, 188, 188);
-   
+    display: block;
+    background-color: rgb(194, 188, 188);
+
 }
-.menu-bars{
+
+.menu-bars {
     border: 2px solid white;
     background-color: rgb(0, 0, 0);
     text-align: center;
     border-radius: 10px;
     margin: 0px 30px;
 }
+
 .menu-bars a {
     text-decoration: none;
     color: white;
 }
+
 /* testimoni */
 
 .testi {
     margin-top: 80px;
     text-align: center;
 }
+
 .testi h3 {
     margin-top: 30px;
-   
+
 }
+
 .ratingbutton {
     margin-top: 25px;
 
 }
+
 .ratingbutton button {
     margin: 0px 15px;
     padding: 5px 15px;
     border-radius: 10px;
     background-color: black;
 }
+
 .ratingbutton button p {
     color: white;
     cursor: pointer;
 }
+
 .divtesti {
     margin: 30px 30px;
     display: flex;
@@ -217,16 +242,23 @@ padding: 0
     padding: 15px 15px;
     display: flex;
 }
-.boxtesti p,h3,h4{
+
+.boxtesti p,
+h3,
+h4 {
     margin-top: 10px;
     margin-left: 10px;
 }
-.boxtesti h3,h4 {
+
+.boxtesti h3,
+h4 {
     text-align: right;
 }
+
 .boxtesti img {
     border-radius: 10px;
 }
+
 .contenttesti {
     display: flex;
     flex-direction: row;

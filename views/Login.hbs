@@ -3,15 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./Assets/css/Style.css">
+    <link rel="stylesheet" href="./Assets/css/style2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Testimonial</title>
+    <title>Contact Me</title>
 </head>
 
-<body style="background-color: rgb(243, 242, 241);">
+<body style="background-color: rgb(190, 186, 186);">
     <nav>
         <div class="left">
             <ul>
@@ -26,13 +27,14 @@
                     <a href="./blog">Create</a>
                 </li>
                 <li>
-                    <a class="active" href="./Testimoni">Testimoni</a>
+                    <a href="./Testimoni">Testimoni</a>
                 </li>
             </ul>
         </div>
         <div class="right">
             <button class="btn-ctc">
-                <a style="display: flex;padding: 9px 13px;font-size: 14;" href="./contactform">Contact Me</a>
+                <a class="active" style="display: flex;padding: 9px 13px;font-size: 14;" href="./contactform">Contact
+                    Me</a>
             </button>
             <button class="btn-bars" onclick="menuBar()">
                 <i class="fa-solid fa-bars"></i>
@@ -46,37 +48,26 @@
         <h3 class="menu-bars"><a href="./contactform">Contact Me</a></h3>
         <h3 class="menu-bars"><a href="./Testimoni">Testimoni</a></h3>
     </div>
-    <div class="testi">
-        <h1>My Testimonials</h1>
-        <h3>Rating By Star</h3>
-        <div class="ratingbutton">
-            <button onclick="allTestimonial()">
-                <p>ALL</p>
-            </button>
-            <button onclick="filterTestimonial(1)">
-                <p>1<i class="fa-solid fa-star"></i></p>
-            </button>
-            <button onclick="filterTestimonial(2)">
-                <p>2<i class="fa-solid fa-star"></i></p>
-            </button>
-            <button onclick="filterTestimonial(3)">
-                <p>3<i class="fa-solid fa-star"></i></p>
-            </button>
-            <button onclick="filterTestimonial(4)">
-                <p>4<i class="fa-solid fa-star"></i></p>
-            </button>
-            <button onclick="filterTestimonial(5)">
-                <p>5<i class="fa-solid fa-star"></i></p>
-            </button>
+    <div style="background-color: rgb(190, 186, 186);">
+        <div>
+            <h1 class="GIT">Login</h1>
+            <form action="/login" method="POST">
+                <div>
+                    <label for="email">Email</label>
+                    <input name="email" id="email" type="email" placeholder="Input Your Email" required>
+                </div>
+                <div>
+                    <label for="passwrod">Password</label>
+                    <input name="password" id="password" type="password" placeholder="Input Your password" required>
+                </div>
+                <div class="btn-login">
+                    <button type=" button" onclick="getData()">Sumbit</button>
+                </div>
         </div>
-    </div>
-    <div id="testimonials" class="contenttesti">
-        <!-- JS testomoni -->
-
+        </form>
     </div>
 
 </body>
-<script src="./Assets/js/testimonial.js"></script>
-<script src="./Assets/js/blog.js"></script>
+<script src="./Assets/js/script.js"></script>
 
 </html>

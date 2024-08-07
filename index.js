@@ -30,6 +30,11 @@ app.get(`/Testimoni`, renderTestimoni)
 app.get(`/edit-blog/:blog_id`, renderEditBlog)
 app.post(`/edit-blog/:blog_id`, editBlog)
 app.get(`/delete-blog/:blog_id`, deleteBlog)
+app.get(`/Login`, renderLogin)
+app.get(`/Register`, renderRegister)
+app.post("/Register", register)
+
+
 
 async function renderIndex(req, res) {
     res.render(`index`, {
@@ -51,9 +56,9 @@ async function addBlog(req, res) {
         console.log(req.body);
         const now = moment()
         const newBlog = `
-    INSERT INTO public.blog(
-	title, startdate, enddate, content)
-	VALUES ($1, $2, $3, $4);`
+        INSERT INTO public.blog(
+            title, startdate, enddate, content)
+            VALUES ($1, $2, $3, $4);`
 
         const values = [
             req.body.title,
@@ -126,12 +131,12 @@ async function editBlog(req, res) {
         ]
 
         const editBlog = `
-            UPDATE public.blog SET
-            title = $1,
-            startDate = $2,
-            endDate = $3,
-            content = $4
-            WHERE id = $5`
+                UPDATE public.blog SET
+                title = $1,
+                startDate = $2,
+                endDate = $3,
+                content = $4
+                WHERE id = $5`
 
         await db.query(editBlog, {
             bind: values
@@ -144,10 +149,25 @@ async function editBlog(req, res) {
 async function deleteBlog(req, res) {
     const id = req.params.blog_id
     const deleteBlog = `DELETE FROM public.blog
-	WHERE id =${id};`
+            WHERE id =${id};`
     await db.query(deleteBlog)
     res.redirect(`/blog`)
 }
+function renderLogin(req, res) {
+    res.render(`Login`)
+}
+function renderRegister(req, res) {
+    res.render(`register`)
+}
+function register(req, res) {
+    console.log(res.body)
+
+    res.redirect("/Login")
+
+}
+
+
+
 
 // end routing
 
