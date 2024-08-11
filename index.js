@@ -4,6 +4,8 @@ const moment = require(`moment`)
 const db = require(`./src/db`)
 const { QueryTypes } = require(`sequelize`)
 const { SELECT } = require("sequelize/lib/query-types")
+const session = require(`express-session`)
+const flash = require(`express-flash`)
 const port = 3000
 
 
@@ -12,11 +14,20 @@ app.set(`views`, `views`)
 
 // setup untuk bisa mengakses static file
 app.use(`/Assets`, express.static(`assets`))
-
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(flash())
+app.use(session({
+    secret: `bapho`,
+    cookie: {
+        maxAge: 360000, secure: false, httpOnly: true
+    },
+    saveUninitialized: true,
+    resave: true,
+    store: new session.MemoryStore()
+}))
 
-const blogs = []
+const blogs = {}
 
 // routing
 
@@ -25,14 +36,15 @@ app.get(`/blog`, renderBlog)
 app.post(`/blog`, addBlog)
 app.get(`/contactform`, renderContactForm)
 app.get(`/Contohproject/:blog_id`, renderContohProject)
-app.get(`/home`, renderHome)
+app.get(`/`, renderHome)
 app.get(`/Testimoni`, renderTestimoni)
 app.get(`/edit-blog/:blog_id`, renderEditBlog)
 app.post(`/edit-blog/:blog_id`, editBlog)
 app.get(`/delete-blog/:blog_id`, deleteBlog)
-app.get(`/Login`, renderLogin)
-app.get(`/Register`, renderRegister)
-app.post("/Register", register)
+app.post(`/login`, login)
+app.get(`/login`, renderLogin)
+app.get(`/register`, renderRegister)
+app.post("/register", register)
 
 
 
@@ -52,9 +64,9 @@ async function renderBlog(req, res) {
 }
 async function addBlog(req, res) {
     try {
-        // const user = req.session.user   
+        // const user = req.session.user
         console.log(req.body);
-        const now = moment()
+        // const now = moment()
         const newBlog = `
         INSERT INTO public.blog(
             title, startdate, enddate, content)
@@ -154,16 +166,69 @@ async function deleteBlog(req, res) {
     res.redirect(`/blog`)
 }
 function renderLogin(req, res) {
-    res.render(`Login`)
+    res.render(`login`)
+}
+async function login(req, res) {
+    try {
+        const query = `
+        SELECT * FROM public."user"
+        WHERE email = $1 
+        AND password = $2`
+
+
+        const existUser = await db.query(query, {
+            type: QueryTypes.SELECT,
+            bind: [req.body.email, req.body.password]
+        })
+
+        if (existUser.length === 0) {
+            req.flash(`error`, `Login Gagal!`)
+            return res.redirect(`/login`)
+        }
+
+        req.session.user = existUser[0]
+        req.session.isLogin = true
+
+        req.flash(`succes`, `Login Sukses!`)
+        res.redirect(`/blog`)
+    } catch (error) {
+        console.log(error);
+        res.redirect(`/login`)
+    }
 }
 function renderRegister(req, res) {
-    res.render(`register`)
+    console.log(req.session);
+
+    res.render(`register`, {
+        info: req.session.info,
+        massage: req.session.message,
+    })
 }
-function register(req, res) {
-    console.log(res.body)
+async function register(req, res) {
+    try {
 
-    res.redirect("/Login")
+        const query = `
+        INSERT INTO public.user
+            (fullname, email, password)
+        VALUES($1, $2, $3); `
+        const values = [
+            req.body.fullname,
+            req.body.email,
+            req.body.password,
+        ]
+        await db.query(query, {
+            type: QueryTypes.INSERT,
+            bind: values,
+        })
 
+        req.flash(`succes`, `register berjalan`)
+        res.redirect("/login")
+
+    } catch (error) {
+        console.log(`error`, error);
+        res.redirect(`/register`)
+
+    }
 }
 
 
@@ -172,5 +237,5 @@ function register(req, res) {
 // end routing
 
 app.listen(port, () => {
-    console.log(`Server berjalan di port ${port}`);
+    console.log(`Server berjalan di port ${port} `);
 })
