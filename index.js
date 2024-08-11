@@ -2,8 +2,22 @@ const express = require(`express`)
 const app = express()
 const moment = require(`moment`)
 const db = require(`./src/db`)
-const { QueryTypes } = require(`sequelize`)
+const multer = require("multer")
+const { QueryTypes, NOW } = require(`sequelize`)
 const { SELECT } = require("sequelize/lib/query-types")
+
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, "uploads/");
+        },
+        filename: (req, file, cb) => {
+            cb(null, Date.now() + file.originalname);
+        },
+    }),
+});
+
+
 const session = require(`express-session`)
 const flash = require(`express-flash`)
 const port = 3000
@@ -11,9 +25,11 @@ const port = 3000
 
 app.set(`view engine`, `hbs`)
 app.set(`views`, `views`)
+app.set("trust proxy", 1);
 
 // setup untuk bisa mengakses static file
 app.use(`/Assets`, express.static(`assets`))
+app.use(`/uploads`, express.static(`uploads`))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(flash())
@@ -23,7 +39,7 @@ app.use(session({
         maxAge: 360000, secure: false, httpOnly: true
     },
     saveUninitialized: true,
-    resave: true,
+    resave: false,
     store: new session.MemoryStore()
 }))
 
@@ -33,7 +49,7 @@ const blogs = {}
 
 app.get(`/index`, renderIndex)
 app.get(`/blog`, renderBlog)
-app.post(`/blog`, addBlog)
+app.post(`/blog`, upload.single("image"), addBlog)
 app.get(`/contactform`, renderContactForm)
 app.get(`/Contohproject/:blog_id`, renderContohProject)
 app.get(`/`, renderHome)
@@ -41,11 +57,11 @@ app.get(`/Testimoni`, renderTestimoni)
 app.get(`/edit-blog/:blog_id`, renderEditBlog)
 app.post(`/edit-blog/:blog_id`, editBlog)
 app.get(`/delete-blog/:blog_id`, deleteBlog)
-app.post(`/login`, login)
 app.get(`/login`, renderLogin)
+app.post(`/login`, login)
 app.get(`/register`, renderRegister)
 app.post("/register", register)
-
+app.get("/logout", logout)
 
 
 async function renderIndex(req, res) {
@@ -54,29 +70,44 @@ async function renderIndex(req, res) {
     })
 }
 async function renderBlog(req, res) {
+    // console.log(req.session);
+
+    const isLogin = req.session.isLogin
+    // if (isLogin) {
+    //     req.flash("error", "anda belum login");
+    //     res.redirect("/login");
+    //     return;
+    // }
+
     const query = `SELECT * FROM public.blog`
     const result = await db.query(query, {
         type: QueryTypes.SELECT
     })
     res.render(`blog`, {
         data: result,
+        isLogin: isLogin,
+        user: req.session.user,
     })
 }
 async function addBlog(req, res) {
     try {
-        // const user = req.session.user
+        const user = req.session.user
         console.log(req.body);
-        // const now = moment()
+        // console.log(req.file);
+
+        const now = moment()
         const newBlog = `
-        INSERT INTO public.blog(
-            title, startdate, enddate, content)
-            VALUES ($1, $2, $3, $4);`
+        INSERT INTO public."blog"(
+            title, startdate, enddate, content,image,author)
+            VALUES ($1, $2, $3, $4, $5, $6);`
 
         const values = [
             req.body.title,
             req.body.startDate,
             req.body.endDate,
             req.body.inputContent,
+            req.file.filename,
+            user.fullname
         ]
 
         await db.query(newBlog, {
@@ -166,6 +197,13 @@ async function deleteBlog(req, res) {
     res.redirect(`/blog`)
 }
 function renderLogin(req, res) {
+    const isLogin = req.session.isLogin
+    if (isLogin) {
+        req.flash("error", "anda belum login");
+        res.redirect("/blog");
+        return;
+    }
+
     res.render(`login`)
 }
 async function login(req, res) {
@@ -197,7 +235,12 @@ async function login(req, res) {
     }
 }
 function renderRegister(req, res) {
-    console.log(req.session);
+    const isLogin = req.session.isLogin
+    if (isLogin) {
+        req.flash("error", "anda belum login");
+        res.redirect("/login");
+        return;
+    }
 
     res.render(`register`, {
         info: req.session.info,
@@ -230,7 +273,10 @@ async function register(req, res) {
 
     }
 }
-
+function logout(req, res) {
+    req.session.destroy();
+    res.redirect("/login");
+}
 
 
 

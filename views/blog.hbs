@@ -31,12 +31,23 @@
             </ul>
         </div>
         <div class="right">
+            {{#if isLogin}}
             <button class="btn-ctc">
                 <a style="display: flex;padding: 9px 13px;font-size: 14;" href="./contactform">Contact Me</a>
             </button>
-            <button class="btn-bars" onclick="menuBar()">
-                <i class="fa-solid fa-bars"></i>
+            <button class="btn-ctc">
+                <a style="display: flex;padding:9px 27px;font-size: 14;  " href="/logout">Logout</a>
             </button>
+            {{else}}
+            <button class="btn-ctc">
+                <a style="display: flex;padding: 9px 27px;font-size: 14;" href="/login">Login</a>
+            </button>
+            <button class="btn-ctc">
+                <a style="display: flex;padding: 9px 22px;font-size: 14;" href="/register">Register</a>
+                {{/if}}
+                <button class="btn-bars" onclick="menuBar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
         </div>
     </nav>
     <div id="bars-menu" class="bars-dflt">
@@ -46,8 +57,9 @@
         <h3 class="menu-bars"><a href="./contactform">Contact Me</a></h3>
         <h3 class="menu-bars"><a href="./Testimoni">Testimoni</a></h3>
     </div>
+    {{#if isLogin}}
     <h1 class="GIT">Add My Project</h1>
-    <form action="/blog" method="POST" style="width: 500px;">
+    <form action="/blog" method="POST" style="width: 500px;" enctype="multipart/form-data">
         <div>
             <label for="projectInput">Project Name</label>
             <input name="title" id="projectInput" type="text" placeholder="Input Project Name">
@@ -96,12 +108,13 @@
             <label for="inputImage">Upload Image</label>
             <input style="background-color: rgb(255, 255, 255);
              padding: 0px;
-              border: 1px solid;" id="inputImage" type="file" placeholder="Input Your Image">
+              border: 1px solid;" id="inputImage" type="file" name="image" placeholder="Input Your Image">
         </div>
         <button>Sumbit</button>
     </form>
     <div class="blog-div1"></div>
     <hr class="line">
+    {{/if}}
     <div class="blog-div2">
         <h1>My Project</h1>
     </div>
@@ -112,11 +125,11 @@
             <div class="inputblog">
                 <div style="margin: 5px 5px;">
                     <a href="./Contohproject/{{this.id}}" target="_blank"><img style="border-radius: 10px;"
-                            src="./Assets/blogsample.jpeg"></a>
+                            src="/uploads/{{this.image}}"></a>
                 </div>
                 <div style="margin: 5px;">
                     <h1>{{this.title}}</h1>
-                    <h5>{{this.startDate}} - {{this.endDate}}</h5> <br>
+                    <h5>{{this.startdate}} - {{this.enddate}}</h5> <br>
                     <p>{{this.content}}</p>
                 </div>
                 <div class="icon-blog">
@@ -125,7 +138,7 @@
                     <a href="https://www.google.com/" target="_blank"><i class="fa-brands fa-java fa-lg"></i></a>
                 </div>
                 <div style="text-align: right;">
-                    {{this.createdAt}} | {{this.author}}
+                    {{this.createdat}} | {{this.author}}
                 </div>
                 <div class="blog-button">
                     <button class="btnblog"><a style="display: flex;" href="/edit-blog/{{this.id}}">Edit</a></button>
