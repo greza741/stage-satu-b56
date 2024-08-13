@@ -211,26 +211,25 @@ function renderLogin(req, res) {
 }
 async function login(req, res) {
     try {
-        const salt = await bcrypt.genSalt();
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
-        const user = { password: hashedPassword }
         const query = `
-        SELECT * FROM public."user"
-        WHERE email = $1 
-        AND password = $2`
+            SELECT * FROM public."user"
+            WHERE email = $1`
 
 
-        // const existUser = await db.query(query, {
-        //     type: QueryTypes.SELECT,
-        //     bind: [req.body.email, req.body.password]
-        // })
-
-        // if (await bcrypt.compare(req.body.password, user.password)) { res.send("Succes") }
-
-        const existUser = await bcrypt.compare(req.body.password, user.password)
+        const existUser = await db.query(query, {
+            type: QueryTypes.SELECT,
+            bind: [req.body.email]
+        })
 
         if (existUser.length === 0) {
+            req.flash(`error`, `Login Gagal!`)
+            return res.redirect(`/login`)
+        }
+        const user = existUser[0]
+
+        const isPasswordValid = await bcrypt.compare(req.body.password, user.password)
+
+        if (!isPasswordValid) {
             req.flash(`error`, `Login Gagal!`)
             return res.redirect(`/login`)
         }
@@ -263,7 +262,7 @@ async function register(req, res) {
         const salt = await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-        const user = { password: hashedPassword }
+        const pass = { password: hashedPassword }
         const query = `
         INSERT INTO public.user
             (fullname, email, password)
@@ -271,7 +270,7 @@ async function register(req, res) {
         const values = [
             req.body.fullname,
             req.body.email,
-            user.password,
+            pass.password,
         ]
         await db.query(query,
             {
