@@ -4,7 +4,9 @@ const moment = require(`moment`)
 const db = require(`./src/db`)
 const multer = require("multer")
 const { QueryTypes, NOW } = require(`sequelize`)
+const bcrypt = require('bcrypt')
 const { SELECT } = require("sequelize/lib/query-types")
+
 
 const upload = multer({
     storage: multer.diskStorage({
@@ -94,7 +96,8 @@ async function addBlog(req, res) {
         const user = req.session.user
         console.log(req.body);
         // console.log(req.file);
-
+        // const durationInmilSec = new Date(req.body.endDate) - new Date(req.body.startDate);
+        // const duration = Math.floor(durationInmilSec / (1000 * 60, 6024 * 30))
         const now = moment()
         const newBlog = `
         INSERT INTO public."blog"(
@@ -208,16 +211,24 @@ function renderLogin(req, res) {
 }
 async function login(req, res) {
     try {
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+        const user = { password: hashedPassword }
         const query = `
         SELECT * FROM public."user"
         WHERE email = $1 
         AND password = $2`
 
 
-        const existUser = await db.query(query, {
-            type: QueryTypes.SELECT,
-            bind: [req.body.email, req.body.password]
-        })
+        // const existUser = await db.query(query, {
+        //     type: QueryTypes.SELECT,
+        //     bind: [req.body.email, req.body.password]
+        // })
+
+        // if (await bcrypt.compare(req.body.password, user.password)) { res.send("Succes") }
+
+        const existUser = await bcrypt.compare(req.body.password, user.password)
 
         if (existUser.length === 0) {
             req.flash(`error`, `Login Gagal!`)
@@ -249,7 +260,10 @@ function renderRegister(req, res) {
 }
 async function register(req, res) {
     try {
+        const salt = await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
+        const user = { password: hashedPassword }
         const query = `
         INSERT INTO public.user
             (fullname, email, password)
@@ -257,12 +271,13 @@ async function register(req, res) {
         const values = [
             req.body.fullname,
             req.body.email,
-            req.body.password,
+            user.password,
         ]
-        await db.query(query, {
-            type: QueryTypes.INSERT,
-            bind: values,
-        })
+        await db.query(query,
+            {
+                type: QueryTypes.INSERT,
+                bind: values,
+            })
 
         req.flash(`succes`, `register berjalan`)
         res.redirect("/login")
